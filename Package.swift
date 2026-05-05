@@ -1,0 +1,60 @@
+// swift-tools-version: 6.0
+import PackageDescription
+
+let package = Package(
+    name: "MediationPrivacyClient",
+    platforms: [
+        .iOS(.v16), .macOS(.v13),
+    ],
+    products: [
+        .singleTargetLibrary("MediationPrivacyClient"),
+        .singleTargetLibrary("MediationPrivacyClientAppLovin"),
+        .singleTargetLibrary("MediationPrivacyClientMeta"),
+    ],
+    dependencies: [
+        .package(
+            url: "https://github.com/pointfreeco/swift-composable-architecture.git",
+            branch: "main"
+        ),
+        .package(
+            url: "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git",
+            from: "13.0.0"
+        ),
+        .package(
+            url: "https://github.com/facebook/facebook-ios-sdk.git",
+            from: "17.0.0"
+        ),
+    ],
+    targets: [
+        .target(
+            name: "MediationPrivacyClient",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+            ]
+        ),
+        .target(
+            name: "MediationPrivacyClientAppLovin",
+            dependencies: [
+                "MediationPrivacyClient",
+                .product(name: "AppLovinSDK", package: "AppLovin-MAX-Swift-Package"),
+            ]
+        ),
+        .target(
+            name: "MediationPrivacyClientMeta",
+            dependencies: [
+                "MediationPrivacyClient",
+                .product(name: "FacebookCore", package: "facebook-ios-sdk"),
+            ]
+        ),
+        .testTarget(
+            name: "MediationPrivacyClientTests",
+            dependencies: ["MediationPrivacyClient"]
+        ),
+    ]
+)
+
+extension Product {
+    static func singleTargetLibrary(_ name: String) -> Product {
+        .library(name: name, targets: [name])
+    }
+}
