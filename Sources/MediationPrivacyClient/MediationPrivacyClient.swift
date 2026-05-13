@@ -1,4 +1,4 @@
-import ComposableArchitecture
+import Dependencies
 import Foundation
 
 /// A TCA dependency client that funnels the post-ATT and post-UMP privacy

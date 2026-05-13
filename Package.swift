@@ -13,8 +13,12 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/pointfreeco/swift-composable-architecture.git",
-            branch: "main"
+            url: "https://github.com/pointfreeco/swift-dependencies.git",
+            from: "1.9.0"
+        ),
+        .package(
+            url: "https://github.com/pointfreeco/swift-case-paths.git",
+            from: "1.5.0"
         ),
         .package(
             url: "https://github.com/AppLovin/AppLovin-MAX-Swift-Package.git",
@@ -29,7 +33,9 @@ let package = Package(
         .target(
             name: "MediationPrivacyClient",
             dependencies: [
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+                .product(name: "CasePaths", package: "swift-case-paths"),
             ]
         ),
         .target(
