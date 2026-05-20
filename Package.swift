@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "MediationPrivacyClient",
     platforms: [
-        .iOS(.v16), .macOS(.v13),
+        .iOS(.v16),
     ],
     products: [
         .singleTargetLibrary("MediationPrivacyClient"),
